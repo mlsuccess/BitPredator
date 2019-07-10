@@ -56,7 +56,7 @@ plt.grid()
 
 plt.show()
 
-
+btcOpen = pd.to_numeric(df.head(352)["Open"])
 x, y = ordered()
 print(len(x))
 
@@ -70,7 +70,7 @@ print(pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo='', gpro
 btcInterest = pytrends.interest_over_time()
 btcInterest = btcInterest['Bitcoin']
 print(btcInterest)
-graphTwo(btcInterest, y[:261],"Price", "Trend")
+graphTwo(btcOpen[:261],btcInterest, "Trend" ,"Price")
 
 
 
