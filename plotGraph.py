@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import time
 import datetime
 from dateutil.parser import parse
-from parse import ordered
+from btcTrans import ordered
 from pytrends.request import TrendReq
 
 def graphTwo(x, y, yaxis, xaxis):

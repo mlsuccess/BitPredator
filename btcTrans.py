@@ -22,3 +22,6 @@ def ordered():
             x.append(od2[i])
             y.append(od[i])
     return np.array(x), np.array(y)
+x,y = ordered()
+btcTrans = x
+print(btcTrans)
