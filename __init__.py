@@ -1,3 +1,5 @@
 from utils import *
 
-pd.read_csv('http://www.cryptodatadownload.com/cdd/Coinbase_BTCUSD_d.csv')
+df = pd.read_csv('coins.csv')
+
+print(df['Close'].values)
