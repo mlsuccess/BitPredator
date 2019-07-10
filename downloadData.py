@@ -7,6 +7,7 @@ import datetime
 from dateutil.parser import parse
 from parse import ordered
 from pytrends.request import TrendReq
+from plotGraph import graphTwo
 
 #Prices
 names = ['Date','Symbol', 'Open', 'Close', 'Volume BTC', 'Volume USD']
@@ -55,38 +56,22 @@ plt.grid()
 
 plt.show()
 
-#print (df["Open"])
-def findAll(x, y):
-    meanx = np.mean(x)
-    meany = np.mean(y)
-    varx = np.var(x)
-    vary = np.var(y)
-    covxy = np.mean((x - meanx) * (y - meany))
-    rho = covxy / (np.sqrt(varx * vary))
-    bestY = (meany + rho * (np.sqrt(vary)/np.sqrt(varx))*(x - meanx))
-    plt.plot(np.unique(x), np.poly1d(np.polyfit(x, y, 1))(np.unique(x)))
-    plt.ylim(min(y)-10,max(y)+10)
-    plt.plot(x, y, 'o')
-    plt.plot(x, bestY)
-    plt.xlabel("Transactions")
-    plt.ylabel("Price")
-    plt.grid()
-
-    # Find all the unique points and those shall be the x values, for y it will be th
-    plt.show()
-
 
 x, y = ordered()
 print(len(x))
-findAll(x,pd.to_numeric(df.head(352)["Open"]))
 
+graphTwo(x,pd.to_numeric(df.head(352)["Open"]), "Price", "Transactions")
+
+
+#Google trends and bitcoin price over time (Dates may not be in order in the google trends list)
 pytrends = TrendReq(hl='en-US', tz=360)
 kw_list = ["Bitcoin"]
 print(pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo='', gprop=''))
 btcInterest = pytrends.interest_over_time()
 btcInterest = btcInterest['Bitcoin']
 print(btcInterest)
-findAll(x,btcInterest)
+graphTwo(btcInterest, y[:261],"Price", "Trend")
+
 
 
 
