@@ -6,6 +6,7 @@ import time
 import datetime
 from dateutil.parser import parse
 from parse import ordered
+from pytrends.request import TrendReq
 
 #Prices
 names = ['Date','Symbol', 'Open', 'Close', 'Volume BTC', 'Volume USD']
@@ -78,6 +79,14 @@ def findAll(x, y):
 x, y = ordered()
 print(len(x))
 findAll(x,pd.to_numeric(df.head(352)["Open"]))
+
+pytrends = TrendReq(hl='en-US', tz=360)
+kw_list = ["Bitcoin"]
+print(pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo='', gprop=''))
+btcInterest = pytrends.interest_over_time()
+btcInterest = btcInterest['Bitcoin']
+print(btcInterest)
+findAll(x,btcInterest)
 
 
 
