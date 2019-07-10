@@ -7,7 +7,7 @@ import datetime
 from dateutil.parser import parse
 from parse import ordered
 
-'''#Prices
+#Prices
 names = ['Date','Symbol', 'Open', 'Close', 'Volume BTC', 'Volume USD']
 url = 'http://www.cryptodatadownload.com/cdd/Coinbase_BTCUSD_d.csv'
 df = pd.read_csv(url, skiprows=[0,1], header = None, delim_whitespace = True, na_values='?')
@@ -54,7 +54,7 @@ plt.grid()
 
 plt.show()
 
-#print (df["Open"])'''
+#print (df["Open"])
 def findAll(x, y):
     meanx = np.mean(x)
     meany = np.mean(y)
@@ -77,7 +77,7 @@ def findAll(x, y):
 
 x, y = ordered()
 print(len(x))
-findAll(x,y)
+findAll(x,pd.to_numeric(df.head(352)["Open"]))
 
 
 
