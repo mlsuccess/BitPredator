@@ -2,14 +2,19 @@ from utils import *
 import time, datetime
 
 df = pd.read_csv('coins.csv')
+print(df['Date'].values)
 
 from pytrends.request import TrendReq
-
 trends = TrendReq(hl='en-US', tz=360)
-trendlist = []
+trendlist = {}
+start = datetime.date.today()-datetime.timedelta(days=1821)
+end = datetime.date.today()-datetime.timedelta(days=1821-i-1)
+trends.build_payload(['bitcoin'],timeframe=start.isoformat()+' '+end.isoformat())
+iot = trends.interest_over_time()
+print(iot)
+trendlist[start.isoformat()] = iot['bitcoin'].values[0]
+    
 
-for i in range(1820):
-    start = datetime.today()-datetime.timedelta(days=1820-i)
-    end = datetime.today()-datetime.timedelta(days=1820-i-1)
-    trendlist.append(trends.get_historical_interest(['bitcoin'],day_start=start.days,year_start=start.year))
+print(trendlist)
+    
 
