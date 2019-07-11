@@ -5,7 +5,6 @@ df = pd.read_csv('coins.csv')
 print(df['Date'].values)
 
 from pytrends.request import TrendReq
-
 data = {}
 for term in ['bitcoin','coinbase']:
     trends = TrendReq(hl='en-US', tz=360)
@@ -24,6 +23,9 @@ for i in ['Close','High','Low']:
     for x in df[i].values:
         data['bt-'+i][df['Date'].values[c]] = x
         c += 1
-print(data.keys())
+
+df = pd.read_csv('weatherHistory.csv')
+
+
     
 
