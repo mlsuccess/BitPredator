@@ -5,16 +5,25 @@ df = pd.read_csv('coins.csv')
 print(df['Date'].values)
 
 from pytrends.request import TrendReq
-trends = TrendReq(hl='en-US', tz=360)
-trendlist = {}
-start = datetime.date.today()-datetime.timedelta(days=1821)
-end = datetime.date.today()-datetime.timedelta(days=1821-i-1)
-trends.build_payload(['bitcoin'],timeframe=start.isoformat()+' '+end.isoformat())
-iot = trends.interest_over_time()
-print(iot)
-trendlist[start.isoformat()] = iot['bitcoin'].values[0]
-    
 
-print(trendlist)
+data = {}
+for term in ['bitcoin','coinbase']:
+    trends = TrendReq(hl='en-US', tz=360)
+    trends.build_payload([term],timeframe='today 3-m')
+    iot = trends.interest_over_time()
+    data['gt-'+term] = {}
+    print(iot.columns)
+    for i in range(len(iot[term].values)):
+        d = datetime.date.today()-datetime.timedelta(days=89-i)
+        data['gt-'+term][d.isoformat()] = iot[term].values[i]
+
+df = pd.read_csv('coins.csv')
+for i in ['Close','High','Low']:
+    data['bt-'+i] = {}
+    c = 0
+    for x in df[i].values:
+        data['bt-'+i][df['Date'].values[c]] = x
+        c += 1
+print(data.keys())
     
 
