@@ -25,6 +25,15 @@ for i in ['Close','High','Low']:
         c += 1
 
 df = pd.read_csv('weatherHistory.csv')
+ld = None
+for i in ['Temperature (C)','Apparent Temperature (C)','Humidity']:
+    data['w-'+i] = {}
+    for x in range(len(df[i].values)):
+        if df['Formatted Date'].values[x].split(' ')[0] != ld:
+            ld = df['Formatted Date'].values[x].split(' ')[0]
+            data['w-'+i][ld] = df[i].values[x]
+print(data['w-Humidity'])
+
 
 
     
